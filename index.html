@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guess my munber</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@500&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    *{
+        font-family:'press start 2p',sans-sarif;
+    }
+    body{
+        color: white;
+        background-color: black;
+    }
+    header div{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    header div .again{
+        font-size: 20px;
+        margin: 20px;
+        padding: 20px;
+    }
+    header div p{
+        font-size: 25px;
+    }
+    h1{
+        text-align: center;
+    }
+    header{
+        border-bottom: 20px solid white;
+    }
+    .number{
+        font-size: 60px;
+        background-color: red;
+        width: 120px;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        left: 350px;
+        top: 55px;
+    }
+    main{
+        margin-top: 100px;
+        display: flex;
+        justify-content: space-around;
+    }
+    .guess{
+        display: block;
+        padding: 10px;
+        width: 80px;
+        text-align: center;
+    }
+    .ckeckBtn{
+        padding: 6px;
+        margin-top: 5px;
+        margin-left: 4px;
+    }
+    .message{
+       margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div>
+           <button class="again">Again</button>
+           <p>(Between 1 And 20)</p>
+        </div>
+        <h1>Guess My Number!</h1>
+        <div class="number">?</div>
+    </header>
+    <main>
+        <section class="left">
+            <input type="number" name="guess" id="guess" class="guess">
+            <button class="ckeckBtn" id="ckeckBtn">Ckeck!</button>
+        </section>
+        <section class="right">
+            <p class="message">Start Guessing...</p>
+            <p class="label-score">Score:<span id="score">20</span></p>
+            <p class="label-highscore">HighScore:<span id="highscore">0</span></p>
+        </section>
+    </main>
+   <script>
+    let secretNmuber= Math.trunc(Math.random()*20 +1);
+    // console.log(secretNmuber);
+    let score=20;
+    let highScore=0;
+    
+    // logic
+    document.getElementById('ckeckBtn').addEventListener('click',()=>{
+        const guesseddNo=document.getElementById('guess').value;
+        // console.log(guesseddNo);
+
+        //if there is no number
+        if(guesseddNo){
+            document.querySelector('.message').textContent="No Number";
+        }
+
+        //when player wins:
+        else if(guesseddNo=== secretNmuber){
+            document.querySelector('.message').textContent="Correct number!";
+            document.querySelector(".number").textContent=secretNmuber;
+
+            document.querySelector("body").style.backgroundColor="lightGreen";
+
+            //for high score:
+            if(score>highScore){
+                highScore=score;
+                document.getElementById("highscore").textContent=highScore;
+            }
+        }
+        else if(!guesseddNo > secretNmuber){
+           if(score > 1){
+            document.querySelector('.message').textContent="Too high";
+            score=score - 1;
+            document.getElementById('score').textContent=score;
+           }else{
+            document.querySelector('.message').textContent="You lost the game";
+            document.getElementById('score').textContent=0;
+
+           }
+        }
+
+        // when the guess is too low
+        else if(guesseddNo< secretNmuber){
+           if(score > 1){
+            document.querySelector('.message').textContent="too low";
+            score=score-1;
+            document.getElementById('score').textContent= score;
+           }else{
+            document.querySelector('.message').textContent="You lost the game";
+            document.getElementById('score').textContent=0;
+
+           }
+        }
+    })
+   </script>
+</body>
+</html>
